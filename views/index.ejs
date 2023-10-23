@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>User list</title>
-    
 </head>
 <body>
     <table>
@@ -14,16 +13,25 @@
             <th>削除</th>
         </tr>
     </table>
+
     <!--こちらに基礎課題で言われてる内容を記述しましょう。ここから-->
+
     <p id="textTag"></p>
+    <p id="textDemo"></p>
 
     <!--こちらに基礎課題で言われてる内容を記述しましょう。ここまで-->
-    <script type="text/javascript">
 
+    <script type="text/javascript">
         // 参考例
         let textTag = document.getElementById('textTag');
         let NUMBER = `<%= number %>`;
         textTag.innerHTML = NUMBER;
+
+        let users = JSON.parse('<%= JSON.stringify(users) %>'.replace(/&#34;/g, '"'));
+        let textDemo = document.getElementById("textDemo");
+        let TEXT =  `<%= text %>`;
+        textDemo.innerHTML = TEXT;
+
         // ここからはapp.jsで作成した値をここでブラウザに出力するように機能を実装していきましょう。上記の参考例を元にやってみましょう。
         // 基礎課題01:画面に表示する機能作りましょう。
         /*
