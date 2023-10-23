@@ -17,6 +17,11 @@
         <p id="textTag"></p>
         <p id="textDemo"></p>
         <ul id="userList"></ul>
+
+        <input type="text" id="userIdInput" placeholder="ユーザーIDを入力">
+        <button onclick="getUserInfo()">情報を取得</button>
+        <div id="userInfo"></div>
+
         <!--こちらに基礎課題で言われてる内容を記述しましょう。ここまで-->
         <script type="text/javascript">
             // 参考例
@@ -36,6 +41,25 @@
                 userListHTML += '<li>name: ' + user.name + '<br>email: ' + user.email + '</li>';
             });
             userList.innerHTML = userListHTML;
+
+
+            let user = document.getElementById('userList');
+            let users = JSON.parse('<%= JSON.stringify(userlist) %>'.replace(/&#34;/g, '"'));
+            console.log(users);
+            function getUserInfo() {
+                const userId = document.getElementById("userIdInput").value;
+                const userInfoDisplay = document.getElementById("userInfo");
+                const user = users.find(u => u.id === userId);
+
+                if (user) {
+                    userInfoDisplay.innerHTML = `
+            名前: ${user.name}<br>
+            Email: ${user.email}`;
+                } else {
+                    userInfoDisplay.innerHTML = "ユーザーが見つかりません。";
+                }
+            }
+
 
             // ここからはapp.jsで作成した値をここでブラウザに出力するように機能を実装していきましょう。上記の参考例を元にやってみましょう。
             // 基礎課題01:画面に表示する機能作りましょう。
