@@ -13,6 +13,7 @@
                 <th>削除</th>
             </tr>
         </table>
+        <table id="tableList"></table>
         <!--こちらに基礎課題で言われてる内容を記述しましょう。ここから-->
         <p id="textTag"></p>
         <p id="textDemo"></p>
@@ -30,12 +31,26 @@
 
             let userList = document.getElementById('userList');
             let USERLIST = JSON.parse(`<%= JSON.stringify(userlist) %>`.replace(/&#34;/g, '"'));
-            console.log(USERLIST);
+            //console.log(USERLIST);
             let userListHTML = '';
             USERLIST.forEach(user => {
                 userListHTML += '<li>name: ' + user.name + '<br>email: ' + user.email + '</li>';
             });
             userList.innerHTML = userListHTML;
+
+            let userList1 = document.getElementById('userList');
+            let TABLELIST = JSON.parse(`<%= JSON.stringify(userlist) %>`.replace(/&#34;/g, '"'));
+            let tableListHTML = '';
+            TABLELIST.forEach(user => {
+                tableListHTML +=
+                `<tr>
+                    <td>name: ${user.name}</td>
+                    <td>email: ${user.email}</td>
+                    <td><a href="/edit/${user.id}">更新</a></td>
+                    <td><a href="/delete/${user.id}">削除</a></td>
+                </tr>`;
+            });
+            userList1.innerHTML = '<table>' + tableListHTML + '</table>';
 
             // ここからはapp.jsで作成した値をここでブラウザに出力するように機能を実装していきましょう。上記の参考例を元にやってみましょう。
             // 基礎課題01:画面に表示する機能作りましょう。
