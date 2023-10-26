@@ -36,13 +36,9 @@ app.get("/", (req, res) => {
   /* ==========従来通りJavaScriptno要領で書いてください。==========
     ここで記載する内容はブラウザに出力するための情報のみになります。上記参考例のconst num = 10000;のように
     各基礎課題で指定された情報を一つの変数に格納していきましょう。各情報を変数に格納したら今度は下にある
-    コメントアウト⓵の部分を確認してみて下さい。*/
-
-  //基礎課題01:文字列を画面に出力しましょう。
-
+    コメントアウト⓵の部分を確認してみて下さい。*/ //基礎課題01:文字列を画面に出力しましょう。
   /*基礎課題02:リストを画面表示
-    app.jsのここで配列を用意し、viewsフォルダのindex.ejsのscriptタグ内で画面に出力出来るように機能を作成して下さい。
-
+    app.jsのここで配列を用意し、viewsフォルダのindex.ejsのscriptタグ内で画面に出力出来るように機能を作成して下さい
     基礎課題03:マップを画面表示
     マップというのは配列の中にオブジェクトを設定するものになります。よく分からない方は
     オブジェクトを以下のように設定
@@ -53,6 +49,20 @@ app.get("/", (req, res) => {
     name: t.hasegawa, email: t.hasegawa@gmail.com
   */
   // ==========ここまでの範囲で書くようにしましょう。==========
+  // 51行目あたりに追加
+  app.post("/", (req, res) => {
+    const sql = "INSERT INTO users SET ?";
+    con.query(sql, req.body, function (err, result, fields) {
+      if (err) throw err;
+      console.log(result);
+      res.redirect("/");
+    });
+  });
+
+  app.get("/create", (req, res) => {
+    res.sendFile(path.join(__dirname, "html/form.html"));
+  });
+
   con.query(sql, function (err, result, fields) {
     if (err) throw err;
     res.render("index", {
