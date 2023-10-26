@@ -20,21 +20,20 @@
         <input type="text" id="userIdInput" placeholder="ユーザーIDを入力">
         <button id="buttonclick">情報を取得</button>
         <div id="userInfo"></div>
-<!--usersのリスト作成　users.lengthでDB上の数分繰り返し-->
+        <!--usersのリスト作成　users.lengthでDB上の数分繰り返し-->
         <table id="tableList">
             <% for (let i=0; i < users.length; i++) { %>
-                <%= users[i].name %>&nbsp;
-                    <%= users[i].email %>
-<!--変更と削除ボタンの付与&nbsp;は空白入れるためのやつ-->
+                <%= users[i].name %>&nbsp; <%= users[i].email %>
+                        <!--変更と削除ボタンの付与&nbsp;は空白入れるためのやつ-->
                         <a href="/edit/<%= users[i].id %>">更新</a>&nbsp;
                         <a href="/delete/<%= users[i].id %>">削除</a><br />
                         <% } %>
         </table>
+        <!--form.htmlとリンクするためのテキストの実装-->
+        <p><a href="/create">ユーザーの追加</a></p>
         <!--こちらに基礎課題で言われてる内容を記述しましょう。ここまで-->
         <script type="text/javascript">
             // 参考例
-
-
 
 
             let textTag = document.getElementById('textTag');
@@ -54,26 +53,26 @@
             });
             userList.innerHTML = userListHTML;
 
-//usersをsqlのDBから取ってきてUSERSという変数に格納している。
+            //usersをsqlのDBから取ってきてUSERSという変数に格納している。
             let USERS = JSON.parse('<%= JSON.stringify(users) %>'.replace(/&#34;/g, '"'));
-//USERS[0]のidをコンソールに出力。
+            //USERS[0]のidをコンソールに出力。
             console.log(USERS[0].id);
 
-//buttonを押したとき
+            //buttonを押したとき
             document.getElementById("buttonclick").onclick = function () {
-//userIdInputに入力された文字を数値型に変換している。
+                //userIdInputに入力された文字を数値型に変換している。
                 const userId = parseInt(document.getElementById("userIdInput").value, 10);
-//userIdが文字型か数値型か判定
+                //userIdが文字型か数値型か判定
                 console.log(typeof userId);
                 console.log(userId);
 
-//入力された文字とDBの中のidで同一のものがあるかの判定
+                //入力された文字とDBの中のidで同一のものがあるかの判定
                 const user = USERS.find(function (user) {
                     return user.id === userId;
                 });
                 console.log(user);
 
-//上で判定して同一のものがあればifの結果文　なければユーザーが見つかりませんと表示させる。
+                //上で判定して同一のものがあればifの結果文　なければユーザーが見つかりませんと表示させる。
                 if (user) {
                     document.getElementById("userInfo").innerHTML = user.name + ' ' + user.email;
                 } else {
